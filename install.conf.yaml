@@ -1,0 +1,22 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- clean: ['~']
+
+- link:
+    ~/.DS_Store:
+    ~/.bash_profile:
+    ~/.bashrc:
+    ~/.dir_colors:
+    ~/.exercism.json:
+    ~/.gitconfig:
+    ~/.gitignore_global:
+    ~/.mackup:
+    ~/.mackup.cfg:
+    ~/.vim:
+    ~/.vimrc:
+
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
