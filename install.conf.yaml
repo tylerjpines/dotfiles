@@ -8,7 +8,6 @@
 - link:
     ~/.bash_profile:
     ~/.bashrc:
-    ~/.exercism.json:
     ~/.gitconfig:
     ~/.gitignore_global:
     ~/.mackup:
