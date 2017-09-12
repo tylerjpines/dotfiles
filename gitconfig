@@ -3,6 +3,9 @@
 	email = tylerjpines@gmail.com
 
 [core]
+    # Enable global excludes
+    excludesfile = ~/.gitignore_global
+    
     #set editor to sublime
     editor = "subl -n -w"
 

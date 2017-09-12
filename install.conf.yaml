@@ -6,16 +6,13 @@
 - clean: ['~']
 
 - link:
-    ~/.DS_Store:
     ~/.bash_profile:
     ~/.bashrc:
-    ~/.dir_colors:
     ~/.exercism.json:
     ~/.gitconfig:
     ~/.gitignore_global:
     ~/.mackup:
     ~/.mackup.cfg:
-    ~/.vim:
     ~/.vimrc:
 
 - shell:
