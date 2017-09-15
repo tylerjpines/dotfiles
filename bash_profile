@@ -91,9 +91,13 @@ DEV="tpines.devnxs.net:/home/tpines"
 DEV_NAME="tpines_dev_home"
 GH="greenhouse-dev.adnxs.net:/home/tpines"
 GH_NAME="tpines_greenhouse_home"
-#helper function to mount greenhouse
+
+# helper function to mount greenhouse
+# NOTE: this detects Pulse VPN using *static* IP
+# IP will need to be updated from /etc/hosts if it changes
+
 function gmount_connect(){
-    if ps -ax | grep Pulse  > /dev/null; then
+    if netstat -nr | grep 68.67  > /dev/null; then
         echo "VPN DETECTED"
         if [ ! -d ~/$1 ]; then
             mkdir -p ~/$1; 
