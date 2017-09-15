@@ -9,9 +9,10 @@ if [ -d ~/anaconda ]; then
 fi
 
 if [ -d ~/.dir_colors ]; then
-    eval `gdircolors ~/.dir_colors/dircolors.ansi-dark`
+    eval `dircolors ~/.dir_colors/dircolors.ansi-dark`
 fi
 
+PATH=""
 # Required for colors in ~/.dir_colors
 if [ -d /usr/local/Cellar/coreutils/ ]; then
     PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
@@ -20,7 +21,8 @@ if [ -d /usr/local/Cellar/coreutils/ ]; then
 fi
 
 if [ -d /Applications/Sublime\ Text.app/Contents/SharedSupport/bin ]; then
-    PATH="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin:$PATH"
+    SUBLPATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+    PATH="$SUBLPATH:$PATH"
 fi
 
 # User specific environment and startup programs
