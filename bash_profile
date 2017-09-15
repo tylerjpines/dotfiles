@@ -25,7 +25,6 @@ fi
 
 # User specific environment and startup programs
 PATH="$PATH:$HOME/bin:/opt/local/bin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/rt/bin"
-PATH="/usr/local/Cellar/coreutils/8.27/bin:$PATH"
 
 # Setting PATH for Python 3.5
 # The orginal version is saved in .bash_profile.pysave
@@ -53,17 +52,15 @@ alias sbp="source .bash_profile"
 alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
-alias lsi="li -liA"
-alias lth="gls -lthA"
-alias lsh="gls -lhSA"
-alias psg='3 aux | grep'
+alias lsi="ls -liA"
+alias lth="ls -lthA"
+alias lsh="ls -lhSA"
+alias psg='ps -aux | grep'
 alias hg='history | grep'
-alias gvbsm='grep -v Binary | grep -v svn | grep -v Makefile | grep -v \~'
 alias gvq='grep -v \?'.
 alias jump='ssh -A tpines@jump.adnxs.net'
 alias dev='ssh -A tpines.devnxs.net'
 alias greenhouse='ssh -A greenhouse-dev.adnxs.net'
-alias sync="ruby /Users/tpines/syncer"
 alias steam="wine /Users/tpines/.wine/drive_c/Program\ Files\ \(x86\)/Steam/Steam.exe -no-dwrite"
 alias facetime_fix="sudo killall VDCAssistant"
 
@@ -95,7 +92,6 @@ GH_NAME="tpines_greenhouse_home"
 # helper function to mount greenhouse
 # NOTE: this detects Pulse VPN using *static* IP
 # IP will need to be updated from /etc/hosts if it changes
-
 function gmount_connect(){
     if netstat -nr | grep 68.67  > /dev/null; then
         echo "VPN DETECTED"
