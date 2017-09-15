@@ -19,8 +19,8 @@ if [ -d /usr/local/Cellar/coreutils/ ]; then
     alias ls="ls -A --color=auto"
 fi
 
-if [ -f ~/.config/exercism/exercism_completion.bash ]; then
-  . ~/.config/exercism/exercism_completion.bash
+if [ -d /Applications/Sublime\ Text.app/Contents/SharedSupport/bin ]; then
+    PATH="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin:$PATH"
 fi
 
 # User specific environment and startup programs
@@ -37,6 +37,7 @@ PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
 # added by Anaconda2 4.4.0 installer
 PATH="/Users/tpines/anaconda/bin:$PATH"
 
+
 # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
@@ -46,6 +47,11 @@ export EDITOR='subl'
 export PS1='\u@\H[\[\e[37m\]\A\[\e[m\]][$?]: \[\e[34m\]\W\[\e[0m\]\n\$ '
 
 ssh-add -A
+
+# Exercism script
+if [ -f ~/.config/exercism/exercism_completion.bash ]; then
+  . ~/.config/exercism/exercism_completion.bash
+fi
 
 alias bp="subl .bash_profile"
 alias sbp="source .bash_profile"
