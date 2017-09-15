@@ -69,6 +69,7 @@ alias dev='ssh -A tpines.devnxs.net'
 alias greenhouse='ssh -A greenhouse-dev.adnxs.net'
 alias steam="wine /Users/tpines/.wine/drive_c/Program\ Files\ \(x86\)/Steam/Steam.exe -no-dwrite"
 alias facetime_fix="sudo killall VDCAssistant"
+alias my_issues="jira issue ls"
 
 #function that pull password from keychain items
 get_pass () {
