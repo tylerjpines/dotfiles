@@ -8,21 +8,11 @@ if [ -d ~/anaconda ]; then
     eval "$(register-python-argcomplete conda)"
 fi
 
-if [ -d ~/.dir_colors ]; then
-    eval `dircolors ~/.dir_colors/dircolors.ansi-dark`
-fi
-
-PATH=""
 # Required for colors in ~/.dir_colors
 if [ -d /usr/local/Cellar/coreutils/ ]; then
     PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
     MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
     alias ls="ls -A --color=auto"
-fi
-
-if [ -d /Applications/Sublime\ Text.app/Contents/SharedSupport/bin ]; then
-    SUBLPATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin"
-    PATH="$SUBLPATH:$PATH"
 fi
 
 # User specific environment and startup programs
@@ -39,6 +29,10 @@ PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
 # added by Anaconda2 4.4.0 installer
 PATH="/Users/tpines/anaconda/bin:$PATH"
 
+if [ -d /Applications/Sublime\ Text.app/Contents/SharedSupport/bin ]; then
+    SUBLPATH="/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+    PATH="$PATH:$SUBLPATH"
+fi
 
 # Load RVM into a shell session *as a function*
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
@@ -49,6 +43,10 @@ export EDITOR='subl'
 export PS1='\u@\H[\[\e[37m\]\A\[\e[m\]][$?]: \[\e[34m\]\W\[\e[0m\]\n\$ '
 
 ssh-add -A
+
+if [ -d ~/.dir_colors ]; then
+    eval `gdircolors ~/.dir_colors/dircolors.ansi-dark`
+fi
 
 # Exercism script
 if [ -f ~/.config/exercism/exercism_completion.bash ]; then
