@@ -12,8 +12,11 @@ if [ -d ~/.dir_colors ]; then
     eval `gdircolors ~/.dir_colors/dircolors.ansi-dark`
 fi
 
-if [ -d /usr/local/Cellar/coreutils/8.27 ]; then
-    alias ls="/usr/local/Cellar/coreutils/8.27/bin/gls -A --color=auto"
+# Required for colors in ~/.dir_colors
+if [ -d /usr/local/Cellar/coreutils/ ]; then
+    PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+    MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+    alias ls="ls -A --color=auto"
 fi
 
 if [ -f ~/.config/exercism/exercism_completion.bash ]; then
@@ -39,6 +42,7 @@ PATH="/Users/tpines/anaconda/bin:$PATH"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 export PATH
+export MANPATH
 export EDITOR='subl'
 export PS1='\u@\H[\[\e[37m\]\A\[\e[m\]][$?]: \[\e[34m\]\W\[\e[0m\]\n\$ '
 
@@ -62,7 +66,6 @@ alias greenhouse='ssh -A greenhouse-dev.adnxs.net'
 alias sync="ruby /Users/tpines/syncer"
 alias steam="wine /Users/tpines/.wine/drive_c/Program\ Files\ \(x86\)/Steam/Steam.exe -no-dwrite"
 alias facetime_fix="sudo killall VDCAssistant"
-alias edit="subl"
 
 #function that pull password from keychain items
 get_pass () {
@@ -90,19 +93,31 @@ GH="greenhouse-dev.adnxs.net:/home/tpines"
 GH_NAME="tpines_greenhouse_home"
 #helper function to mount greenhouse
 function gmount_connect(){
-    if [ ! -d ~/$1 ]; then
-        mkdir -p ~/$1; 
-        mount | grep osxfusefs | grep $1 > /dev/null; [ $? -ne 0 ] && sshfs -ovolname=$1 $2 ~/$1
-        echo "$1 MOUNTED"
-    elif [ -d ~/$1 ] && [ ! "`ls -A ~/$1`" ]; then
-        echo "FOUND EMPTY $1";
-        umount $1;
-        rmdir ~/$1;
-        mkdir -p ~/$1; 
-        mount | grep osxfusefs | grep $1 > /dev/null; [ $? -ne 0 ] && sshfs -ovolname=$1 $2 ~/$1
-        echo "$1 MOUNTED"
+    if ps -ax | grep Pulse  > /dev/null; then
+        echo "VPN DETECTED"
+        if [ ! -d ~/$1 ]; then
+            mkdir -p ~/$1; 
+            mount | grep osxfusefs | grep $1 > /dev/null; [ $? -ne 0 ] && sshfs -ovolname=$1 $2 ~/$1
+            echo "$1 MOUNTED"
+        elif [ -d ~/$1 ] && [ ! "`ls -A ~/$1`" ]; then
+            echo "FOUND EMPTY $1";
+            umount $1;
+            rmdir ~/$1;
+            mkdir -p ~/$1; 
+            mount | grep osxfusefs | grep $1 > /dev/null; [ $? -ne 0 ] && sshfs -ovolname=$1 $2 ~/$1
+            echo "$1 MOUNTED"
+        else
+            echo "$1 ALREADY MOUNTED"
+        fi
     else
-        echo "$1 ALREADY MOUNTED"
+        echo "NO VPN DETECTED"
+        if [ -d ~/$1 ] && [ ! "`ls -A ~/$1`" ]; then
+            umount $1;
+            rmdir ~/$1;
+            echo "REMOVED $1"
+        else
+            echo "NO DEV FOLDERS FOUND"
+        fi
     fi
 }
 
