@@ -31,6 +31,8 @@ trustExitCode = false
 
 [diff]
 tool = sublimerge
+# Detect copies as well as renames
+renames = copies
 
 [difftool "sublimerge"]
 cmd = subl -n --wait \"$REMOTE\" \"$LOCAL\" --command \"sublimerge_diff_views {\\\"left_read_only\\\": true, \\\"right_read_only\\\": true}\"
@@ -150,11 +152,6 @@ cmd = subl -n --wait \"$REMOTE\" \"$LOCAL\" --command \"sublimerge_diff_views {\
     added = yellow
     changed = green
     untracked = cyan
-
-[diff]
-
-    # Detect copies as well as renames
-    renames = copies
 
 [help]
 
