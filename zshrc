@@ -31,7 +31,7 @@ ssh-add -A
 if [[ -n $SSH_CONNECTION ]]; then
     export EDITOR='vim'
 else
-    export EDITOR='st'
+    export EDITOR='subl'
 fi
 
 # Anodot work
