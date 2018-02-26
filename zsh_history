@@ -1,0 +1,55 @@
+: 1519680813:0;cd ..
+: 1519680814:0;lsh
+: 1519680824:0;cat .zshrc
+: 1519680913:0;lsh
+: 1519680919:0;cd .dotfiles
+: 1519680920:0;lsh
+: 1519680924:0;cat .dir_colors
+: 1519680928:0;ls .dir_colors
+: 1519680932:0;cat .bash_profile
+: 1519680935:0;lsh
+: 1519680948:0;cat .gitconfig
+: 1519680952:0;cat .zshrc
+: 1519680955:0;lsh
+: 1519680975:0;cat lsh
+: 1519680976:0;lsh
+: 1519680985:0;cat .mackup.cfg
+: 1519680995:0;cat .zsh_history
+: 1519681002:0;cat .bashrc
+: 1519681008:0;cat .gitignore_global
+: 1519681028:0;lsh 
+: 1519681034:0;./install
+: 1519681050:0;cd ..
+: 1519681076:0;mv .oh-my-zsh .dotfiles/
+: 1519681078:0;cd .dotfiles
+: 1519681078:0;lsh
+: 1519681084:0;mv .oh-my-zsh oh-my-zsh
+: 1519681087:0;cd ..
+: 1519681090:0;cd .dotfiles
+: 1519681094:0;./install
+: 1519681098:0;cd ..
+: 1519681099:0;lsh
+: 1519681140:0;cd Google\ Drive/Mackup/
+: 1519681140:0;lsh
+: 1519681142:0;ls
+: 1519681160:0;zsh
+: 1519681163:0;ls
+: 1519681175:0;rm .bash_profile
+: 1519681208:0;rm .bashrc
+: 1519681210:0;rm .gitconfig
+: 1519681227:0;rm .mackup
+: 1519681232:0;ls .mackup
+: 1519681235:0;rm -rf .mackup
+: 1519681238:0;rm .mackup.cfg
+: 1519681247:0;ls Library/Preferences
+: 1519681253:0;cd Library/Preferences
+: 1519681254:0;lsh
+: 1519681267:0;rm com.kapeli.dashdoc\ \(1\).plist
+: 1519681268:0;lsh
+: 1519681277:0;rm com.spotify.client\ \(1\).plist y
+: 1519681286:0;lsh
+: 1519681302:0;cd ..
+: 1519681309:0;ls Application\ Support/
+: 1519681320:0;lsh
+: 1519681324:0;cd Application\ Support
+: 1519681325:0;lsh
