@@ -50,7 +50,8 @@ cmd = subl -n --wait \"$REMOTE\" \"$LOCAL\" --command \"sublimerge_diff_views {\
     l = log --pretty=oneline -n 20 --graph --abbrev-commit
 
     # View the current working tree status using the short format
-    s = status -s
+    s = status
+    ss = status -s
 
     # Show the diff between the latest commit and the current state
     d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
