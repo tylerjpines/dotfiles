@@ -71,7 +71,8 @@ alias gvq='grep -v \?'.
 alias mkstart='minikube delete || minikube start --memory 2048 --cpus 2 --insecure-registry=docker.artifactory.dev.adnxs.net'
 alias jump='ssh -A tpines@jump.adnxs.net'
 alias dev='ssh -A tpines.devnxs.net'
-alias anodot_dev='ssh -A 2313.tpines.user.nym2.adnxs.net'
+alias dev_anodot='ssh -A 2313.tpines.user.nym2.adnexus.net'
+alias dev_kub='ssh -A 2559.tpines.user.nym2.adnexus.net'
 alias facetime_fix="sudo killall VDCAssistant"
 
 # Terjira aliases
