@@ -102,7 +102,7 @@ fi
 alias jump='ssh -A tpines@jump.adnxs.net'
 alias dev='ssh -A tpines.devnxs.net'
 alias dev_ano='ssh -A 2313.tpines.user.nym2.adnexus.net'
-alias dev_kub='ssh -A 2558.tpines.user.nym2.adnexus.net'
+alias dev_kub='ssh -A 2572.tpines.user.nym2.adnexus.net'
 alias facetime_fix="sudo killall VDCAssistant"
 
 # Terjira aliases
