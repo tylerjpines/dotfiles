@@ -14,20 +14,19 @@ plugins=(
     kubectl
 )
 
-if [ -d ~/.oh-my-zsh ]; then
-    echo "ZSH found"
-    export ZSH=/Users/tpines/.oh-my-zsh
-    source $ZSH/oh-my-zsh.sh    
-fi
-
 # SSH
 if [ "$SSH_CONNECTION" ]; then
   echo "REMOTE SSH DETECTED"
   export EDITOR="vim"
 else
-  echo "LOCAL DETECTED"
-  export EDITOR="subl"
-  ssh-add -A
+    echo "LOCAL DETECTED"
+    export EDITOR="subl"
+    ssh-add -A
+    if [ -d ~/.oh-my-zsh ]; then
+        echo "ZSH found"
+        export ZSH=/Users/tpines/.oh-my-zsh
+        source $ZSH/oh-my-zsh.sh    
+    fi
 fi
 
 ###################################
@@ -38,14 +37,13 @@ if [[ -d /usr/local/Cellar/coreutils/ ]]; then
     PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
     MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
     alias ls="ls -A --color=auto"
+    if [[ -d ~/.dir_colors ]]; then
+        eval `gdircolors ~/.dir_colors/dircolors.ansi-dark`
+    fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     alias ls="ls -GA"
 elif [[ "$OSTYPE" == "linux"* ]]; then
     alias ls="ls -A --color=auto"
-fi
-
-if [[ -d ~/.dir_colors ]]; then
-    eval `gdircolors ~/.dir_colors/dircolors.ansi-dark`
 fi
 
 ###################################
