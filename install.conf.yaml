@@ -16,7 +16,6 @@
     ~/.vimrc:
     ~/com.googlecode.iterm2.plist:
     ~/.zshrc:
-    ~/.zsh_history:
     ~/.oh-my-zsh:
 
 - shell:
