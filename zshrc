@@ -41,13 +41,11 @@ else
     alias mkstart='minikube delete ; minikube start --memory 2048 --cpus 2 --insecure-registry=docker.artifactory.dev.adnxs.net'
 fi
 
-# Retrieve passwords
-if [ -f ~/.adnxspass ]; then
-    source ~/.adnxspass
-fi
 # Retrive tools
-if [ -f ~/.adnxstools ]; then
-    source ~/.adnxstools
+if [ -f ~/repos/tpines_scripts/utilities.sh ]; then
+    source ~/repos/tpines_scripts/utilities.sh
+else
+    echo "WARNING: No utilities.sh found"
 fi
 
 # Anodot work
