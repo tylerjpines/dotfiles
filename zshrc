@@ -111,7 +111,7 @@ function acc() {
         fi
 }
 
-PROMPT="$PROMPT  ($(kcc)) $fg[yellow]($(acc)) $reset_color"
+PROMPT="$PROMPT ($(kcc)) ($(acc)) "
 
 
 ###################################
