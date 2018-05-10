@@ -5,3 +5,6 @@
 [submodule "oh-my-zsh"]
     path = oh-my-zsh
     url = https://github.com/robbyrussell/oh-my-zsh
+[submodule "kube-ps1"]
+	path = kube-ps1
+	url = https://github.com/jonmosco/kube-ps1.git

@@ -31,14 +31,16 @@ if [ "$SSH_CONNECTION" ]; then
 else
     ssh-add -A
     echo "LOCAL DETECTED"
-    if [ -d ~/.oh-my-zsh ]; then
-        echo "ZSH found"
-        export ZSH=/Users/tpines/.oh-my-zsh
-        source $ZSH/oh-my-zsh.sh    
-    fi
     export EDITOR="subl"
     eval 'git config --global core.editor "subl -n -w"'
     alias mkstart='minikube delete ; minikube start --memory 2048 --cpus 2 --insecure-registry=docker.artifactory.dev.adnxs.net'
+fi
+
+if [ -d ~/.oh-my-zsh ]; then
+    echo "ZSH found"
+    export ZSH=~/.oh-my-zsh
+    source $ZSH/oh-my-zsh.sh
+    autoload -U colors && colors
 fi
 
 # Retrive tools
@@ -107,9 +109,15 @@ function acc() {
         fi
 }
 
-if [ "$SSH_CONNECTION" ]; then
-    export PS1='[\[\e[0;33m\]\[\e[m\]\[\e[0;32m\]\w\[\e[m\]] \[\e[0;33m\][$(gcb)] [$(kcc)] [$(acc)]\[\e[m\]\n$ '
+if [ -d ~/.dotfiles/kube-ps1 ]; then
+    echo "kube-ps1 found"
+    source ~/.dotfiles/kube-ps1/kube-ps1.sh
+    PROMPT="$PROMPT $(kube_ps1)$fg[yellow] ($(acc)) $reset_color"
 fi
+
+
+# export PS1='[\[\e[0;33m\]\[\e[m\]\[\e[0;32m\]\w\[\e[m\]] \[\e[0;33m\][$(gcb)] [$(kcc)] [$(acc)]\[\e[m\]\n$ '
+
 
 ###################################
 ######## PATH/PROMPT Mods #########
