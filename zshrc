@@ -103,7 +103,7 @@ function acc() {
     current_ankhctx=$(grep current-context: ~/.ankh/config 2>/dev/null | awk '{print $2}' 2>/dev/null)
         if [ $? -eq 0 ]
         then
-                echo ankh:$current_ankhctx
+                echo $fg[orange]$'\u2605' $fg[yellow]$current_ankhctx$reset_color
         else
                 echo ""
         fi
