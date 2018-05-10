@@ -70,8 +70,10 @@ if [[ -d /usr/local/Cellar/coreutils/ ]]; then
         eval `gdircolors ~/.dir_colors/dircolors.ansi-dark`
     fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
+    eval `dircolors ~/.dir_colors/dircolors.ansi-dark`
     alias ls="ls -GA"
 elif [[ "$OSTYPE" == "linux"* ]]; then
+    eval `dircolors ~/.dir_colors/dircolors.ansi-dark`
     alias ls="ls -A --color=auto"
 fi
 
@@ -145,9 +147,9 @@ alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
 alias hg='history | grep'
-alias lsi="ls -liA --color=auto"
-alias lth="ls -lthA --color=auto"
-alias lsh="ls -lhSA --color=auto"
+alias lsi="ls -liA"
+alias lth="ls -lthA"
+alias lsh="ls -lhSA"
 alias psg='ps -aux | grep'
 alias hg='history | grep'
 alias gvq='grep -v \?'
