@@ -111,8 +111,6 @@ function acc() {
 
 PROMPT="$PROMPT  ($(kcc)) $fg[yellow]($(acc)) $reset_color"
 
-# export PS1='[\[\e[0;33m\]\[\e[m\]\[\e[0;32m\]\w\[\e[m\]] \[\e[0;33m\][$(gcb)] [$(kcc)] [$(acc)]\[\e[m\]\n$ '
-
 
 ###################################
 ######## PATH/PROMPT Mods #########
@@ -140,9 +138,9 @@ alias dkub='ssh -A 2572.tpines.user.nym2.adnexus.net'
 alias facetime_fix="sudo killall VDCAssistant"
 alias log='git log --graph --full-history --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s" --color'
 
-alias zrc="st ~/.zshrc"
-alias bp="vim .bash_profile"
-alias sbp="source .bash_profile"
+alias zrc='"${EDITOR:-vi}" ~/.zshrc'
+alias bp='"${EDITOR:-vi}" ~/.bash_profile'
+alias sbp="source ~/.bash_profile"
 alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
