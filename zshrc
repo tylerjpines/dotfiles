@@ -94,7 +94,7 @@ function kcc() {
     current_kubectx=$(grep current-context: ~/.kube/config 2>/dev/null | awk '{print $2}' 2>/dev/null)
         if [ $? -eq 0 ]
         then
-                echo kube:$current_kubectx
+                echo $fg[blue]$'\u2388' $fg[yellow]$current_kubectx$reset_color
         else
                 echo ""
         fi
@@ -109,12 +109,7 @@ function acc() {
         fi
 }
 
-if [ -d ~/.dotfiles/kube-ps1 ]; then
-    echo "kube-ps1 found"
-    source ~/.dotfiles/kube-ps1/kube-ps1.sh
-    PROMPT="$PROMPT $(kube_ps1)$fg[yellow] ($(acc)) $reset_color"
-fi
-
+PROMPT="$PROMPT  ($(kcc)) $fg[yellow]($(acc)) $reset_color"
 
 # export PS1='[\[\e[0;33m\]\[\e[m\]\[\e[0;32m\]\w\[\e[m\]] \[\e[0;33m\][$(gcb)] [$(kcc)] [$(acc)]\[\e[m\]\n$ '
 
