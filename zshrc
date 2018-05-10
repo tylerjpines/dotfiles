@@ -12,15 +12,6 @@ plugins=(
     zsh-autosuggestions
 )
 
-if [ -d ~/.oh-my-zsh ]; then
-    echo "ZSH found"
-    export ZSH=/Users/tpines/.oh-my-zsh
-    source $ZSH/oh-my-zsh.sh    
-fi
-
-# SSH
-ssh-add -A
-
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
 
@@ -28,10 +19,33 @@ ssh-add -A
 # COMPLETION_WAITING_DOTS="true"
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-    export EDITOR='vim'
+
+# SSH
+if [ "$SSH_CONNECTION" ]; then
+    echo "REMOTE SSH DETECTED"
+    export EDITOR="vim"
+    export PATH=$PATH:/usr/local/go/bin/:~/go/bin/:~/repos/resources_scripts/scripts/:~/repos/tools_helm-chart-generator
+    alias mkstart='sudo -E minikube delete ; sudo -E minikube start --memory 120240 --cpus 6 --vm-driver=none --insecure-registry=docker.artifactory.dev.adnxs.net --kubernetes-version v1.9.0'
 else
-    export EDITOR='subl'
+    ssh-add -A
+    echo "LOCAL DETECTED"
+    if [ -d ~/.oh-my-zsh ]; then
+        echo "ZSH found"
+        export ZSH=/Users/tpines/.oh-my-zsh
+        source $ZSH/oh-my-zsh.sh    
+    fi
+    export EDITOR="subl"
+    eval 'git config --global core.editor "subl -n -w"'
+    alias mkstart='minikube delete ; minikube start --memory 2048 --cpus 2 --insecure-registry=docker.artifactory.dev.adnxs.net'
+fi
+
+# Retrieve passwords
+if [ -f ~/.adnxspass ]; then
+    source ~/.adnxspass
+fi
+# Retrive tools
+if [ -f ~/.adnxstools ]; then
+    source ~/.adnxstools
 fi
 
 # Anodot work
@@ -50,20 +64,65 @@ if [ -d /usr/local/Cellar/coreutils/ ]; then
     PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
     MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
     alias ls="ls -A --color=auto"
+    if [ -d ~/.dir_colors ]; then
+        eval `gdircolors ~/.dir_colors/dircolors.ansi-dark`
+    fi
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    alias ls="ls -GA"
+elif [[ "$OSTYPE" == "linux"* ]]; then
+    alias ls="ls -A --color=auto"
 fi
 
-if [ -d ~/.dir_colors ]; then
-    eval `gdircolors ~/.dir_colors/dircolors.ansi-dark`
+###################################
+###### PROMPT Modifications #######
+###################################
+
+# Prompt tools for git & kubernetes
+
+function gcb() {
+        current_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+        if [ $? -eq 0 ]
+        then
+                echo git:$current_branch
+        else
+                echo ""
+        fi
+}
+function kcc() {
+    current_kubectx=$(grep current-context: ~/.kube/config 2>/dev/null | awk '{print $2}' 2>/dev/null)
+        if [ $? -eq 0 ]
+        then
+                echo kube:$current_kubectx
+        else
+                echo ""
+        fi
+}
+function acc() {
+    current_ankhctx=$(grep current-context: ~/.ankh/config 2>/dev/null | awk '{print $2}' 2>/dev/null)
+        if [ $? -eq 0 ]
+        then
+                echo ankh:$current_ankhctx
+        else
+                echo ""
+        fi
+}
+
+if [ "$SSH_CONNECTION" ]; then
+    export PS1='[\[\e[0;33m\]\[\e[m\]\[\e[0;32m\]\w\[\e[m\]] \[\e[0;33m\][$(gcb)] [$(kcc)] [$(acc)]\[\e[m\]\n$ '
 fi
 
 ###################################
 ####### PATH Modifications ########
 ###################################
+
 # User specific environment and startup programs
 PATH="$PATH:$HOME/bin:/opt/local/bin:/opt/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin"
 
 # Setting PATH for Python 3.6
 PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
+
+# Setting PATH for Python 2.7
+PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
 
 export PATH
 export MANPATH="/usr/local/man:$MANPATH"
@@ -74,22 +133,18 @@ export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
 ###################################
 
 alias zrc="st ~/.zshrc"
+alias bp="vim .bash_profile"
+alias sbp="source .bash_profile"
 alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
+alias hg='history | grep'
 alias lsi="ls -liA --color=auto"
 alias lth="ls -lthA --color=auto"
 alias lsh="ls -lhSA --color=auto"
 alias psg='ps -aux | grep'
 alias hg='history | grep'
 alias gvq='grep -v \?'.
-
-# AppNexus aliases
-alias mkstart='minikube delete ; minikube start --memory 2048 --cpus 2 --insecure-registry=docker.artifactory.dev.adnxs.net'
-alias jump='ssh -A tpines@jump.adnxs.net'
-alias dev='ssh -A tpines.devnxs.net'
-alias anodot_dev='ssh -A 2313.tpines.user.nym2.adnxs.net'
-alias facetime_fix="sudo killall VDCAssistant"
 
 # Terjira aliases
 alias ji="jira issue"
@@ -101,39 +156,13 @@ alias jsa="jira sprint active -b 1606 -a ALL"
 alias jbb="jira board backlog -b 1606"
 
 ###################################
-####### Password Getter ###########
-###################################
-#function that pull password from keychain items
-get_pass () {
-    security 2>&1 >/dev/null find-generic-password -g -s $1 | awk -F'"' '{printf $2}'
-}
-
-#loads password stored in your keychain to paste buffer
-PastePass () {
-    get_pass $1 | pbcopy
-}
-
-#prints password stored in your keychain to terminal
-PrintPass () {
-    echo "`get_pass $1`"
-}
-
-###################################
 ######### REMOTE SERVERS ##########
 ###################################
-function tojump () {
-  scp $1 jump.adnxs.net:/home/tpines;
-    return 0
-}
-
-# Pulls from jump to desktop
-function pull() {
-    scp tpines@jump.adnxs.net:"$@" ~/Desktop/TEMP ;
-}
-
 
 DEV="tpines.devnxs.net:/home/tpines"
 DEV_NAME="tpines_dev_home"
+KUB="2572.tpines.user.nym2.adnexus.net:/home/tpines"
+KUB_NAME="tpines_kub_home"
 
 # Helper function to mount devbox
 # NOTE: this detects Pulse VPN using *static* IP
@@ -168,8 +197,10 @@ function gmount_connect(){
 }
 
 # Mount devbox on terminal startup
-alias dev_mount="gmount_connect $DEV_NAME $DEV"
-dev_mount
+alias dev_mount="gmount_connect $1 $2"
+dev_mount $DEV_NAME $DEV
+dev_mount $KUB_NAME $KUB
+
 
 # Quick shortcut to open folder on devbox in Sublime
 function code(){
