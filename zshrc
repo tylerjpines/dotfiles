@@ -139,6 +139,11 @@ export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
 ###################################
 ############ ALIASES ##############
 ###################################
+alias dev='ssh -A tpines.devnxs.net'
+alias dano='ssh -A 2313.tpines.user.nym2.adnexus.net'
+alias dkub='ssh -A 2572.tpines.user.nym2.adnexus.net'
+alias facetime_fix="sudo killall VDCAssistant"
+alias log='git log --graph --full-history --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s" --color'
 
 alias zrc="st ~/.zshrc"
 alias bp="vim .bash_profile"
