@@ -1400,14 +1400,16 @@
 			</dict>
 			<key>Selection Color</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.25882352941176473</real>
+				<real>0.453704833984375</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.21176470588235294</real>
+				<real>0.43470040549472344</real>
 				<key>Red Component</key>
-				<real>0.027450980392156862</real>
+				<real>0.068586025852710009</real>
 			</dict>
 			<key>Semantic History</key>
 			<dict>

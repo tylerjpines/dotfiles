@@ -3,6 +3,7 @@
 ###################################
 
 ZSH_THEME="agnoster"
+DEFAULT_USER="tpines"
 
 plugins=(
     git
@@ -10,6 +11,7 @@ plugins=(
     osx
     sublime
     zsh-autosuggestions
+    kubectl
 )
 
 # Uncomment the following line to enable command auto-correction.
@@ -60,11 +62,11 @@ fi
 ####### LS COLOR SETTINGS #########
 ###################################
 
-if [ -d /usr/local/Cellar/coreutils/ ]; then
+if [[ -d /usr/local/Cellar/coreutils/ ]]; then
     PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
     MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
     alias ls="ls -A --color=auto"
-    if [ -d ~/.dir_colors ]; then
+    if [[ -d ~/.dir_colors ]]; then
         eval `gdircolors ~/.dir_colors/dircolors.ansi-dark`
     fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -112,7 +114,7 @@ if [ "$SSH_CONNECTION" ]; then
 fi
 
 ###################################
-####### PATH Modifications ########
+######## PATH/PROMPT Mods #########
 ###################################
 
 # User specific environment and startup programs
@@ -144,7 +146,9 @@ alias lth="ls -lthA --color=auto"
 alias lsh="ls -lhSA --color=auto"
 alias psg='ps -aux | grep'
 alias hg='history | grep'
-alias gvq='grep -v \?'.
+alias gvq='grep -v \?'
+alias ..="cd ../"
+alias ....="cd ../../"
 
 # Terjira aliases
 alias ji="jira issue"
@@ -170,11 +174,11 @@ KUB_NAME="tpines_kub_home"
 function gmount_connect(){
     if netstat -nr | grep 68.67  > /dev/null; then
         echo "VPN DETECTED"
-        if [ ! -d ~/$1 ]; then
+        if [[ ! -d ~/$1 ]]; then
             mkdir -p ~/$1;
             mount | grep osxfusefs | grep $1 > /dev/null; [ $? -ne 0 ] && sshfs -ovolname=$1 $2 ~/$1
             echo "$1 MOUNTED"
-        elif [ -d ~/$1 ] && [ ! "`ls -A ~/$1`" ]; then
+        elif [[ -d ~/$1 ]] && [[ ! "`ls -A ~/$1`" ]]; then
             echo "FOUND EMPTY $1";
             umount $1;
             rmdir ~/$1;
@@ -186,7 +190,7 @@ function gmount_connect(){
         fi
     else
         echo "NO VPN DETECTED"
-        if [ -d ~/$1 ] && [ ! "`ls -A ~/$1`" ]; then
+        if [[ -d ~/$1 ]] && [[ ! "`ls -A ~/$1`" ]]; then
             umount $1;
             rmdir ~/$1;
             echo "REMOVED $1"
@@ -204,11 +208,11 @@ dev_mount $KUB_NAME $KUB
 
 # Quick shortcut to open folder on devbox in Sublime
 function code(){
-    if [ ! -d ~/tpines_dev_home/repos/$1 ]; then
+    if [[ ! -d ~/tpines_dev_home/repos/$1 ]]; then
         echo ""
         echo "Folder \"$1\" is empty"
         echo ""
     else
-        eval "st ~/tpines_dev_home/repos/$1";
+        eval "st ~/tpines_dev_home/repos/$1"
     fi
 }
