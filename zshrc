@@ -43,6 +43,10 @@ if [ -d ~/.oh-my-zsh ]; then
     autoload -U colors && colors
 fi
 
+if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+fi
+
 # Retrive tools
 if [ -f ~/repos/tpines_scripts/utilities.sh ]; then
     source ~/repos/tpines_scripts/utilities.sh
