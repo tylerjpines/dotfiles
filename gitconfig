@@ -41,8 +41,11 @@ cmd = subl -n --wait \"$REMOTE\" \"$LOCAL\" --command \"sublimerge_diff_views {\
     whitespace = fix
 
 [alias]
-    #full history, abbreviated
-    lh = log --graph --full-history --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s" --color'
+    # Full history, abbreviated
+    lh = !git log --graph --full-history --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s" --color
+
+    # Check out master, remove inputted branch, cleanup what doesn't exist in remote
+    cu = !git checkout master; git fetch; git br -D $1; git remote prune origin; git pull; git sub update;
 
     # View abbreviated SHA, description, and history graph of the latest 20 commits
     l = log --pretty=oneline -n 20 --graph --abbrev-commit
@@ -52,7 +55,7 @@ cmd = subl -n --wait \"$REMOTE\" \"$LOCAL\" --command \"sublimerge_diff_views {\
     ss = status -s
 
     # Show the diff between the latest commit and the current state
-    d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+    d = !git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat
 
     # Overview of how many lines changed in each file
     ds = diff --stat master
