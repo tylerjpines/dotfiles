@@ -88,35 +88,36 @@ fi
 # Prompt tools for git & kubernetes
 
 function gcb() {
-        current_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-        if [ $? -eq 0 ]
-        then
-                echo git:$current_branch
-        else
-                echo ""
-        fi
+    current_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    if [ $? -eq 0 ]
+    then
+        echo "git:$current_branch"
+    else
+        echo "git:"
+    fi
 }
 function kcc() {
     current_kubectx=$(grep current-context: ~/.kube/config 2>/dev/null | awk '{print $2}' 2>/dev/null)
-        if [ $? -eq 0 ]
-        then
-                echo $fg[blue]$'\u2388' $fg[yellow]$current_kubectx$reset_color
-        else
-                echo ""
-        fi
+    if [ $? -eq 0 ]
+    then
+        echo "$fg[blue]\u2388 $fg[yellow]$current_kubectx$reset_color"
+    else
+        echo ""
+    fi
 }
 function acc() {
     current_ankhctx=$(grep current-context: ~/.ankh/config 2>/dev/null | awk '{print $2}' 2>/dev/null)
-        if [ $? -eq 0 ]
-        then
-                echo $fg[orange]$'\u2605' $fg[yellow]$current_ankhctx$reset_color
-        else
-                echo ""
-        fi
+    if [ $? -eq 0 ]
+    then
+        echo "$fg[orange]\u2605 $fg[yellow]$current_ankhctx$reset_color"
+    else
+        echo ""
+    fi
 }
 
-PROMPT="$PROMPT ($(kcc)) ($(acc)) "
-
+precmd() {
+  echo "[$(kcc)] [$(acc)]"
+}
 
 ###################################
 ######## PATH/PROMPT Mods #########
