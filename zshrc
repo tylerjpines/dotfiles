@@ -28,6 +28,7 @@ if [ "$SSH_CONNECTION" ]; then
     export EDITOR="vim"
     export PATH=$PATH:/usr/local/go/bin/:~/go/bin/:~/repos/resources_scripts/scripts/:~/repos/tools_helm-chart-generator
     alias mkstart='sudo -E minikube delete ; sudo -E minikube start --memory 120240 --cpus 6 --vm-driver=none --insecure-registry=docker.artifactory.dev.adnxs.net --kubernetes-version v1.9.0'
+    [ -f ~/.bashrc ] && source ~/.bashrc
 else
     ssh-add -A
     echo "LOCAL DETECTED"
@@ -43,9 +44,7 @@ if [ -d ~/.oh-my-zsh ]; then
     autoload -U colors && colors
 fi
 
-if [ -f ~/.bashrc ]; then
-    source ~/.bashrc
-fi
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Retrive tools
 if [ -f ~/repos/tpines_scripts/utilities.sh ]; then
