@@ -115,9 +115,8 @@ function acc() {
     fi
 }
 
-precmd() {
-  echo "[$(kcc)] [$(acc)]"
-}
+PROMPT="$(kcc) $(acc)
+$PROMPT"
 
 ###################################
 ######## PATH/PROMPT Mods #########
