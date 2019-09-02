@@ -74,14 +74,7 @@ fi
 ####### LS COLOR SETTINGS #########
 ###################################
 
-if [[ -d /usr/local/Cellar/coreutils/ ]]; then
-    PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-    MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-    alias ls="ls -A --color=auto"
-    if [[ -d ~/.dir_colors ]]; then
-        eval `gdircolors ~/.dir_colors/dircolors.ansi-dark`
-    fi
-elif [[ "$OSTYPE" == "darwin"* ]]; then
+if [[ "$OSTYPE" == "darwin"* ]]; then
     eval `dircolors ~/.dir_colors/dircolors.ansi-dark`
     alias ls="ls -GA"
 elif [[ "$OSTYPE" == "linux"* ]]; then
@@ -188,7 +181,7 @@ DEV_NAME="tpines_dev_home"
 # NOTE: this detects Pulse VPN using *static* IP
 # IP will need to be updated from /etc/hosts if it changes
 function gmount_connect(){
-    if netstat -nr | grep 68.67  > /dev/null; then
+    if netstat -nr | grep 130.1  > /dev/null; then
         echo "VPN DETECTED"
         if [[ ! -d ~/$1 ]]; then
             mkdir -p ~/$1;
