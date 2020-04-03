@@ -18,5 +18,5 @@
     ~/.exercism:
 
 - shell:
-  - [git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k]
+  - [git clone --depth=1 https&#58;//github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k]
   - [git submodule update --init --recursive, Installing submodules]
