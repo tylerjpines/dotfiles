@@ -15,7 +15,7 @@
     ~/com.googlecode.iterm2.plist:
     ~/.zshrc:
     ~/.oh-my-zsh:
+    ~/.exercism:
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
-  - [./fonts/install.sh]

@@ -1,8 +1,15 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 ###################################
 ####### ZSH configurations ########
 ###################################
 
-ZSH_THEME="agnoster"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 DEFAULT_USER="tpines"
 
 plugins=(
@@ -35,7 +42,7 @@ else
     ssh-add -A
     echo "LOCAL DETECTED"
     export EDITOR="subl"
-    eval 'git config --global core.editor "subl -n -w"'
+    eval 'git config --global core.editor "code --wait"'
     alias mkstart='minikube delete ; minikube start --memory 2048 --cpus 2 --insecure-registry=docker.artifactory.dev.adnxs.net'
 fi
 
@@ -166,3 +173,6 @@ function docker-purge(){
         docker system prune -a;
     fi
 }
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
