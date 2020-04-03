@@ -17,11 +17,21 @@ plugins=(
 # SSH
 if [ "$SSH_CONNECTION" ]; then
     echo "REMOTE SSH DETECTED"
-    export EDITOR="vim"
-    export PATH=$PATH:/usr/local/go/bin/:~/go/bin/:~/repos/resources_scripts/scripts/:~/repos/tools_helm-chart-generator
+    eval 'git config --global core.editor vim'
     alias mkstart='sudo -E minikube delete ; sudo -E minikube start --memory 120240 --cpus 6 --vm-driver=none --insecure-registry=docker.artifactory.dev.adnxs.net --kubernetes-version v1.9.0'
-    [ -f ~/.bashrc ] && source ~/.bashrc
+    alias docker='sudo -E docker'
+    alias minikube='sudo -E minikube'
+    export CHANGE_MINIKUBE_NONE_USER=true
+    export PS1='[\[\e[0;33m\]\[\e[m\]\[\e[0;32m\]\h \w\[\e[m\]] [$(gcb)] $(kcc) $(acc)\[\e[m\]\n$ '
+    export PATH=$PATH:/usr/local/go/bin/:~/go/bin/:~/repos/resources_scripts/scripts/:~/repos/tools_helm-chart-generator:~/repos/resources_rubiks-kube/bin
+    export EDITOR="vim"
 else
+    if [[ -d ~/.oh-my-zsh/ ]]; then
+            echo "ZSH found"
+            export ZSH=~/.oh-my-zsh
+            source $ZSH/oh-my-zsh.sh
+            autoload -U colors && colors
+    fi
     ssh-add -A
     echo "LOCAL DETECTED"
     export EDITOR="subl"
@@ -29,11 +39,10 @@ else
     alias mkstart='minikube delete ; minikube start --memory 2048 --cpus 2 --insecure-registry=docker.artifactory.dev.adnxs.net'
 fi
 
-if [ -d ~/.oh-my-zsh ]; then
-    echo "ZSH found"
-    export ZSH=~/.oh-my-zsh
-    source $ZSH/oh-my-zsh.sh
-    autoload -U colors && colors
+if [ -f ~/.bashrc ]; then
+    if [ -n "$BASH" ]; then
+        source ~/.bashrc
+    fi
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -42,7 +51,7 @@ fi
 if [ -f ~/repos/tpines_scripts/utilities.sh ]; then
     source ~/repos/tpines_scripts/utilities.sh
 else
-    echo "WARNING: No utilities.sh found"
+    echo "No utilities.sh found"
 fi
 
 # Anodot work
@@ -57,14 +66,7 @@ fi
 ####### LS COLOR SETTINGS #########
 ###################################
 
-if [[ -d /usr/local/Cellar/coreutils/ ]]; then
-    PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-    MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-    alias ls="ls -A --color=auto"
-    if [[ -d ~/.dir_colors ]]; then
-        eval `gdircolors ~/.dir_colors/dircolors.ansi-dark`
-    fi
-elif [[ "$OSTYPE" == "darwin"* ]]; then
+if [[ "$OSTYPE" == "darwin"* ]]; then
     eval `dircolors ~/.dir_colors/dircolors.ansi-dark`
     alias ls="ls -GA"
 elif [[ "$OSTYPE" == "linux"* ]]; then
@@ -167,3 +169,11 @@ alias jbb="jira board backlog -b 1606"
 
 DEV="2572.tpines.user.nym2.adnexus.net:/home/tpines"
 DEV_NAME="tpines_dev_home"
+
+function docker-purge(){
+    list="$(docker ps --all -q -f status=exited)"
+    if [ -n "$list" ]; then
+        docker rm "$list" && \
+        docker system prune -a;
+    fi
+}
