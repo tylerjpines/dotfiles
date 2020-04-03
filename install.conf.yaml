@@ -13,10 +13,25 @@
     ~/.gitignore_global:
     ~/.vimrc:
     ~/com.googlecode.iterm2.plist:
+        force: true
     ~/.zshrc:
+    ~/.p10k.zsh:
     ~/.oh-my-zsh:
     ~/.exercism:
 
 - shell:
-  - if [ ! -d "./oh-my-zsh/custom/themes/powerlevel10k" ]; then git clone --depth=1 "https://github.com/romkatv/powerlevel10k.git" "./oh-my-zsh/custom/themes/powerlevel10k"; fi
-  - [git submodule update --init --recursive, Installing submodules]
+  # Clone powerlevel10k zsh theme
+  -
+    command: if [ ! -d "./oh-my-zsh/custom/themes/powerlevel10k" ]; then git clone --depth=1 "https://github.com/romkatv/powerlevel10k.git" "./oh-my-zsh/custom/themes/powerlevel10k"; fi
+    stdin: true
+    stdout: true
+    description: Installing Homebrew
+    quiet: false
+  # Clone powerlevel10k zsh theme
+  - [git submodule update --init --recursive , Installing submodules]
+  -
+    command: if [ ! -d "/usr/local/Homebrew" ]; then /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" && brew cask; fi
+    stdin: true
+    stdout: true
+    description: Installing Homebrew
+    quiet: false
