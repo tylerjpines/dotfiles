@@ -25,13 +25,21 @@
     command: if [ ! -d "./oh-my-zsh/custom/themes/powerlevel10k" ]; then git clone --depth=1 "https://github.com/romkatv/powerlevel10k.git" "./oh-my-zsh/custom/themes/powerlevel10k"; fi
     stdin: true
     stdout: true
-    description: Installing Homebrew
+    description: "***** Installing powerlevel10k *****"
     quiet: false
-  # Clone powerlevel10k zsh theme
+  # Clone zsh-autosuggestions
+  -
+    command: if [ ! -d "./oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then git clone "https://github.com/zsh-users/zsh-autosuggestions" "./oh-my-zsh/custom/plugins/zsh-autosuggestions"; fi
+    stdin: true
+    stdout: true
+    description: "***** Installing zsh-autosuggestions *****\n"
+    quiet: false
+  # Update all submodules
   - [git submodule update --init --recursive , Installing submodules]
+  # Install homebrew + cask
   -
     command: if [ ! -d "/usr/local/Homebrew" ]; then /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)" && brew cask; fi
     stdin: true
     stdout: true
-    description: Installing Homebrew
+    description: "***** Installing Homebrew *****\n"
     quiet: false
