@@ -66,10 +66,8 @@ fi
 ####### LS COLOR SETTINGS #########
 ###################################
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    eval `dircolors ~/.dir_colors/dircolors.ansi-dark`
-    alias ls="ls -GA"
-elif [[ "$OSTYPE" == "linux"* ]]; then
+if [[ "$OSTYPE" == "linux"* ]]; then
+    echo "Setting colors for Linux"
     eval `dircolors ~/.dir_colors/dircolors.ansi-dark`
     alias ls="ls -A --color=auto"
 fi
@@ -78,17 +76,8 @@ fi
 ###### PROMPT Modifications #######
 ###################################
 
-# Prompt tools for git & kubernetes
+# Prompt tools for kubernetes
 
-function gcb() {
-    current_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
-    if [ $? -eq 0 ]
-    then
-        echo "git:$current_branch"
-    else
-        echo "git:"
-    fi
-}
 function kcc() {
     current_kubectx=$(grep current-context: ~/.kube/config 2>/dev/null | awk '{print $2}' 2>/dev/null)
     if [ $? -eq 0 ]
