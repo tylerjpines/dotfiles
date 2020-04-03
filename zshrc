@@ -14,14 +14,6 @@ plugins=(
     kubectl
 )
 
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Preferred editor for local and remote sessions
-
 # SSH
 if [ "$SSH_CONNECTION" ]; then
     echo "REMOTE SSH DETECTED"
@@ -54,8 +46,8 @@ else
 fi
 
 # Anodot work
-if [ -d ~/repos/anodot-forwarder/ ]; then
-    export PYTHONPATH="/Users/tpines/repos/anodot-forwarder/app_anodot-forwarder/kapybara"
+if [ -d ~/repos/appnexus/anodot-forwarder/ ]; then
+    export PYTHONPATH="/Users/tpines/repos/appnexus/anodot-forwarder/app_anodot-forwarder/kapybara"
 fi
 if [ -d ~/Documents/repos/appnexus/anodot-forwarder/ ]; then
     export PYTHONPATH="~/Documents/repos/appnexus/anodot-forwarder/app_anodot-forwarder/kapybara"
@@ -130,6 +122,9 @@ PATH="/Library/Frameworks/Python.framework/Versions/3.6/bin:${PATH}"
 # Setting PATH for Python 2.7
 PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
 
+# VSCode
+PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:${PATH}"
+
 export PATH
 export MANPATH="/usr/local/man:$MANPATH"
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
@@ -138,8 +133,6 @@ export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ;} history -a"
 ############ ALIASES ##############
 ###################################
 alias dev='ssh -A tpines.devnxs.net'
-alias dano='ssh -A 2313.tpines.user.nym2.adnexus.net'
-alias dkub='ssh -A 2572.tpines.user.nym2.adnexus.net'
 alias facetime_fix="sudo killall VDCAssistant"
 alias log='git log --graph --full-history --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s" --color'
 
@@ -172,56 +165,5 @@ alias jbb="jira board backlog -b 1606"
 ######### REMOTE SERVERS ##########
 ###################################
 
-DEV="tpines.devnxs.net:/home/tpines"
+DEV="2572.tpines.user.nym2.adnexus.net:/home/tpines"
 DEV_NAME="tpines_dev_home"
-KUB="2572.tpines.user.nym2.adnexus.net:/home/tpines"
-KUB_NAME="tpines_kub_home"
-
-# Helper function to mount devbox
-# NOTE: this detects Pulse VPN using *static* IP
-# IP will need to be updated from /etc/hosts if it changes
-function gmount_connect(){
-    if netstat -nr | grep 68.67  > /dev/null; then
-        echo "VPN DETECTED"
-        if [[ ! -d ~/$1 ]]; then
-            mkdir -p ~/$1;
-            mount | grep osxfusefs | grep $1 > /dev/null; [ $? -ne 0 ] && sshfs -ovolname=$1 $2 ~/$1
-            echo "$1 MOUNTED"
-        elif [[ -d ~/$1 ]] && [[ ! "`ls -A ~/$1`" ]]; then
-            echo "FOUND EMPTY $1";
-            umount $1;
-            rmdir ~/$1;
-            mkdir -p ~/$1;
-            mount | grep osxfusefs | grep $1 > /dev/null; [ $? -ne 0 ] && sshfs -ovolname=$1 $2 ~/$1
-            echo "$1 MOUNTED"
-        else
-            echo "$1 ALREADY MOUNTED"
-        fi
-    else
-        echo "NO VPN DETECTED"
-        if [[ -d ~/$1 ]] && [[ ! "`ls -A ~/$1`" ]]; then
-            umount $1;
-            rmdir ~/$1;
-            echo "REMOVED $1"
-        else
-            echo "NO DEV FOLDERS FOUND"
-        fi
-    fi
-}
-
-# Mount devbox on terminal startup
-alias dev_mount="gmount_connect $1 $2"
-dev_mount $DEV_NAME $DEV
-dev_mount $KUB_NAME $KUB
-
-
-# Quick shortcut to open folder on devbox in Sublime
-function code(){
-    if [[ ! -d ~/tpines_dev_home/repos/$1 ]]; then
-        echo ""
-        echo "Folder \"$1\" is empty"
-        echo ""
-    else
-        eval "st ~/tpines_dev_home/repos/$1"
-    fi
-}
