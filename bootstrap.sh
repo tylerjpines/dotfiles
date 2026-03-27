@@ -77,6 +77,11 @@ echo "    You will be prompted for: full name, git email, and profile (work|pers
 echo ""
 chezmoi init --apply "${DOTFILES_REPO}"
 
+# 7. Install mise runtimes
+echo ""
+echo "==> Installing mise runtimes..."
+mise install
+
 echo ""
 echo "============================================================"
 echo "  Bootstrap complete!"
@@ -84,9 +89,8 @@ echo "============================================================"
 echo ""
 echo "Next steps:"
 echo "  1. Restart your terminal (or run: source ~/.zshrc)"
-echo "  2. Install mise runtimes: mise install"
-echo "  3. Set machine-local secrets in ~/.zshrc.local (e.g. RC_PRIVATE_KEY)"
-echo "  4. Set up 1Password SSH agent (for SSH + git signing):"
+echo "  2. Set machine-local secrets in ~/.zshrc.local (e.g. RC_PRIVATE_KEY)"
+echo "  3. Set up 1Password SSH agent (for SSH + git signing):"
 echo "     - Open 1Password > Settings > Developer > enable 'Use the SSH Agent'"
 echo "     - Import your SSH key: 1Password > + > SSH Key > Import"
 echo "     - Optionally delete plaintext key: rm ~/.ssh/id_ed25519 ~/.ssh/id_ed25519.pub"
