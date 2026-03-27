@@ -16,8 +16,6 @@ brew "uv"           # Fast Python package manager
 brew "yarn"         # Node package manager
 
 # Casks
-# Note: 1password and ghostty are assumed pre-installed on existing Macs.
-# Uncomment to install on fresh machines:
-# cask "1password"
-# cask "ghostty"
+cask "1password"          # Password manager
 cask "1password-cli"      # 1Password CLI (op)
+cask "ghostty"            # Terminal emulator
