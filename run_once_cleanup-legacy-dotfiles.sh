@@ -55,14 +55,6 @@ if [[ -d "$HOME/install" && ! "$(ls -A "$HOME/install")" ]]; then
   rmdir "$HOME/install"
 fi
 
-# --- fzf leftovers (superseded by shell setup) ---
-for f in "$HOME/.fzf.zsh" "$HOME/.fzf.bash" "$HOME/.fzf.install"; do
-  if [[ -e "$f" ]]; then
-    echo "    Removing fzf leftover: $f"
-    rm -rf "$f"
-  fi
-done
-
 # --- Old iTerm2 plist (superseded by Ghostty) ---
 if [[ -f "$HOME/com.googlecode.iterm2.plist" ]]; then
   echo "    Removing old iTerm2 plist..."
