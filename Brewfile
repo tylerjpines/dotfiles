@@ -16,6 +16,6 @@ brew "uv"           # Fast Python package manager
 brew "yarn"         # Node package manager
 
 # Casks
-cask "1password"          # Password manager
-cask "1password-cli"      # 1Password CLI (op)
-cask "ghostty"            # Terminal emulator
+cask "1password", args: { adopt: true }          # Password manager
+cask "1password-cli", args: { adopt: true }      # 1Password CLI (op)
+cask "ghostty", args: { adopt: true }            # Terminal emulator
