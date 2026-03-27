@@ -55,4 +55,36 @@ if [[ -d "$HOME/install" && ! "$(ls -A "$HOME/install")" ]]; then
   rmdir "$HOME/install"
 fi
 
+# --- fzf leftovers (superseded by shell setup) ---
+for f in "$HOME/.fzf.zsh" "$HOME/.fzf.bash" "$HOME/.fzf.install"; do
+  if [[ -e "$f" ]]; then
+    echo "    Removing fzf leftover: $f"
+    rm -rf "$f"
+  fi
+done
+
+# --- Old iTerm2 plist (superseded by Ghostty) ---
+if [[ -f "$HOME/com.googlecode.iterm2.plist" ]]; then
+  echo "    Removing old iTerm2 plist..."
+  rm "$HOME/com.googlecode.iterm2.plist"
+fi
+
+# --- Orphaned .nvm data directory (nvm uninstalled, mise handles Node) ---
+if [[ -d "$HOME/.nvm" ]]; then
+  echo "    Removing ~/.nvm (orphaned nvm data, mise manages Node now)..."
+  rm -rf "$HOME/.nvm"
+fi
+
+# --- Orphaned .pyenv data directory (pyenv uninstalled, mise handles Python) ---
+if [[ -d "$HOME/.pyenv" ]]; then
+  echo "    Removing ~/.pyenv (orphaned pyenv data, mise manages Python now)..."
+  rm -rf "$HOME/.pyenv"
+fi
+
+# --- .exercism symlink ---
+if [[ -L "$HOME/.exercism" ]]; then
+  echo "    Removing .exercism symlink..."
+  rm "$HOME/.exercism"
+fi
+
 echo "==> Legacy cleanup complete."
