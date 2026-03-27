@@ -1,0 +1,101 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+###################################
+######## PATH/PROMPT Mods #########
+###################################
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:$HOME/.bin"
+
+# Go lang variables
+export GOPATH=$HOME/go
+export PATH="$PATH:${GOPATH}/bin"
+
+# Windsurf
+export PATH="/Users/{{ .chezmoi.username }}/.codeium/windsurf/bin:$PATH"
+
+# mise — runtime version manager
+eval "$(mise activate zsh)"
+
+export EDITOR="surf"
+export ZSH="$HOME/.oh-my-zsh"
+
+###################################
+####### ZSH configurations ########
+###################################
+
+ZSH_THEME="powerlevel10k/powerlevel10k"
+
+plugins=(
+    git
+    docker
+    macos
+    zsh-autosuggestions
+)
+
+source $ZSH/oh-my-zsh.sh
+
+###################################
+############ ALIASES ##############
+###################################
+
+# Navigation
+alias ..="cd ../"
+alias ....="cd ../../"
+
+# Safety
+alias rm="rm -i"
+alias cp="cp -i"
+alias mv="mv -i"
+
+# Shell reload
+alias szh="source ~/.zshrc"
+alias zrc='"${EDITOR:-vi}" ~/.zshrc'
+
+# eza — modern ls replacement
+alias ls="eza"
+alias lsi="eza -la --icons"
+alias lth="eza -la --sort=modified --icons"
+alias lsh="eza -la --sort=size --icons"
+
+# Search
+alias hg='history | grep'
+alias psg='ps -aux | grep'
+alias gvq='grep -v \?'
+
+# Git log
+alias log='git log --graph --full-history --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s" --color'
+
+# Ghostty config
+alias gconfig='"${EDITOR:-vi}" "$HOME/Library/Application Support/com.mitchellh.ghostty/config"'
+
+###################################
+########## ZSH FUNCTIONS ##########
+###################################
+
+function docker-purge(){
+    list="$(docker ps --all -q -f status=exited)"
+    if [ -n "$list" ]; then
+        docker rm "$list" && \
+        docker system prune -a;
+    fi
+}
+
+###################################
+######## FZF + COMPLETION #########
+###################################
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+###################################
+########## LOCAL OVERRIDES ########
+###################################
+# Machine-local config (not committed — put RC_PRIVATE_KEY and other secrets here)
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

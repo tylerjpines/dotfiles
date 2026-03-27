@@ -1,0 +1,21 @@
+# Anything with squiggle
+*~
+
+# Compiled Python files
+*.pyc
+
+# Folder view configuration files
+.DS_Store
+.password*
+Desktop.ini
+
+# Thumbnail cache files
+._*
+Thumbs.db
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes
+
+# Local zsh overrides (machine-specific secrets)
+.zshrc.local

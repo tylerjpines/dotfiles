@@ -1,0 +1,7 @@
+[tools]
+python = "3.13"
+go     = "latest"
+
+[settings]
+# Automatically read .nvmrc and .node-version files
+legacy_version_file = true
