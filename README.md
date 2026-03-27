@@ -76,15 +76,14 @@ dotfiles/
 ├── dot_zshrc.tmpl              # ~/.zshrc
 ├── dot_gitconfig.tmpl          # ~/.gitconfig
 ├── dot_gitignore_global        # ~/.gitignore_global
-├── dot_vimrc                   # ~/.vimrc
 ├── dot_p10k.zsh                # ~/.p10k.zsh
 ├── dot_ssh/
-│   └── config.tmpl             # ~/.ssh/config (1Password agent)
+│   └── config                  # ~/.ssh/config (1Password agent)
 ├── dot_config/
 │   └── mise/
 │       └── config.toml         # mise global tool versions
-├── Brewfile                    # All Homebrew installs
+├── install/
+│   └── Brewfile                # All Homebrew installs
 ├── bootstrap.sh                # Fresh Mac bootstrap script
-├── run_once_install-op-cli.sh  # Install 1Password CLI + print setup instructions
 └── run_onchange_brew-bundle.sh # Re-runs brew bundle when Brewfile changes
 ```
