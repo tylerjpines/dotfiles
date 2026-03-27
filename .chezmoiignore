@@ -1,6 +1,6 @@
 README.md
 bootstrap.sh
-install/Brewfile
+install/**
 .chezmoiexternal.toml
 
 # oh-my-zsh runtime-generated files
