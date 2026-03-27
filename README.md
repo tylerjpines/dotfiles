@@ -5,7 +5,7 @@ Personal macOS dotfiles managed with [chezmoi](https://chezmoi.io).
 ## Bootstrap a fresh Mac
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/tylerjpines/dotfiles/main/bootstrap.sh | bash
+curl -fsSL https://raw.githubusercontent.com/tylerjpines/dotfiles/master/bootstrap.sh | bash
 ```
 
 This will:

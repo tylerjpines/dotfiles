@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DOTFILES_REPO="https://github.com/tylerjpines/dotfiles"
+DOTFILES_REPO="https://github.com/tylerjpines/dotfiles.git"
 
 echo ""
 echo "============================================================"
