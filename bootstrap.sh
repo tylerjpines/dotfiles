@@ -48,7 +48,29 @@ else
   echo "==> mise already installed."
 fi
 
-# 5. Initialize and apply dotfiles
+# 5. Clean up old dotbot symlinks (if any)
+echo "==> Checking for old dotbot symlinks..."
+DOTFILES_CANDIDATES=(
+  "$HOME/.zshrc"
+  "$HOME/.bashrc"
+  "$HOME/.bash_profile"
+  "$HOME/.gitconfig"
+  "$HOME/.gitignore_global"
+  "$HOME/.p10k.zsh"
+  "$HOME/.vimrc"
+  "$HOME/.ssh/config"
+)
+for f in "${DOTFILES_CANDIDATES[@]}"; do
+  if [[ -L "$f" ]]; then
+    target=$(readlink "$f")
+    if [[ "$target" == *dotfiles* || "$target" == *\.dotfiles* ]]; then
+      echo "    Removing dotbot symlink: $f -> $target"
+      rm "$f"
+    fi
+  fi
+done
+
+# 6. Initialize and apply dotfiles
 echo ""
 echo "==> Initializing dotfiles from ${DOTFILES_REPO}..."
 echo "    You will be prompted for: full name, git email, and profile (work|personal)"
