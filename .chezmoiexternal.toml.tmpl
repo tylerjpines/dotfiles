@@ -15,3 +15,10 @@
   url     = "https://github.com/zsh-users/zsh-autosuggestions/archive/master.tar.gz"
   exact   = true
   stripComponents = 1
+
+{{ if eq .profile "personal" -}}
+[".claude/skills/gstack"]
+  type          = "git-repo"
+  url           = "https://github.com/garrytan/gstack.git"
+  refreshPeriod = "168h"
+{{ end -}}

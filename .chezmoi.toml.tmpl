@@ -1,8 +1,10 @@
 {{- $name := promptStringOnce . "name" "Full name" -}}
 {{- $email := promptStringOnce . "email" "Git email" -}}
 {{- $profile := promptStringOnce . "profile" "Profile (work or personal)" -}}
+{{- $signingkey := promptStringOnce . "signingkey" "SSH signing key public key path (e.g. ~/.ssh/id_ed25519.pub)" -}}
 
 [data]
-  name    = {{ $name | quote }}
-  email   = {{ $email | quote }}
-  profile = {{ $profile | quote }}
+  name       = {{ $name | quote }}
+  email      = {{ $email | quote }}
+  profile    = {{ $profile | quote }}
+  signingkey = {{ $signingkey | quote }}
