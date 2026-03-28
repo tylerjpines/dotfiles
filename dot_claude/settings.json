@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(brew:*)",
+      "Bash(bun:*)",
+      "Bash(gh:*)",
+      "Bash(git:*)",
+      "Bash(go:*)",
+      "Bash(mise:*)",
+      "Bash(npm:*)",
+      "Bash(uv:*)",
+      "Bash(yarn:*)"
+    ]
+  }
+}

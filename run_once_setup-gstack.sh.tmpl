@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# run_once_setup-gstack.sh.tmpl — runs once after gstack is first cloned
+{{ if eq .profile "work" -}}
+exit 0
+{{- else }}
+set -euo pipefail
+
+GSTACK_DIR="${HOME}/.claude/skills/gstack"
+
+if [[ ! -f "${GSTACK_DIR}/setup" ]]; then
+  echo "==> gstack not found at ${GSTACK_DIR}, skipping setup"
+  exit 0
+fi
+
+echo "==> Setting up gstack..."
+cd "${GSTACK_DIR}" && ./setup
+echo "==> gstack setup complete."
+{{- end }}
