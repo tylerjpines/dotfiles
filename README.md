@@ -106,7 +106,7 @@ dotfiles/
 ├── dot_claude/
 │   └── settings.json               # ~/.claude/settings.json (personal only)
 ├── dot_ssh/
-│   └── config                      # ~/.ssh/config (1Password agent)
+│   └── config.tmpl                 # ~/.ssh/config (1Password agent, key from signingkey)
 ├── dot_config/
 │   └── mise/
 │       └── config.toml             # mise global tool versions
@@ -114,6 +114,6 @@ dotfiles/
 │   ├── Brewfile                    # Core Homebrew installs (all profiles)
 │   └── Brewfile.personal           # Personal-only: Claude, Claude Code, bun
 ├── bootstrap.sh                    # Fresh Mac bootstrap script
-├── run_onchange_brew-bundle.sh     # Re-runs brew bundle when Brewfile(s) change
+├── run_onchange_brew-bundle.sh.tmpl # Re-runs brew bundle when Brewfile(s) change
 └── run_once_setup-gstack.sh.tmpl   # Runs gstack setup after first clone (personal only)
 ```
