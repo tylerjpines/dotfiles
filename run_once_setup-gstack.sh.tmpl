@@ -12,6 +12,10 @@ if [[ ! -f "${GSTACK_DIR}/setup" ]]; then
   exit 0
 fi
 
+# Activate mise so bun is on PATH
+eval "$(mise activate bash)"
+mise install --yes
+
 echo "==> Setting up gstack..."
 cd "${GSTACK_DIR}" && ./setup
 echo "==> gstack setup complete."
