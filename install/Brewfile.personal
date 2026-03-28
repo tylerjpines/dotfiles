@@ -1,6 +1,4 @@
 # Personal-only tools — not installed on work machines
 
-brew "bun"                                          # JavaScript runtime (required for gstack)
-
 cask "claude", args: { adopt: true }                # Claude desktop app
 cask "claude-code", args: { adopt: true }           # Claude Code CLI
